@@ -1,0 +1,332 @@
+/* Wolf Trading Academy - responsive home page */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    background-color: #05070D;
+    color: #F4F7FF;
+    font-family: 'Orbitron', Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Navigation */
+nav {
+    width: 100%;
+    min-height: 84px;
+    padding: 12px clamp(16px, 3vw, 42px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #0B1220;
+    display: flex;
+    align-items: center;
+    gap: 14px 18px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    width: 54px;
+    height: 54px;
+    object-fit: cover;
+    border-radius: 50%;
+    flex: 0 0 auto;
+}
+
+.title {
+    margin: 0;
+    font-size: clamp(18px, 2vw, 27px);
+    line-height: 1.2;
+}
+
+.title span,
+.name span {
+    color: #00C8FF;
+}
+
+.anker {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+}
+
+.anker a {
+    color: #F4F7FF;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    transition: color 0.2s ease;
+}
+
+.anker a:hover {
+    color: #00C8FF;
+}
+
+/* Main background and course card */
+.main {
+    width: 100%;
+    min-height: calc(100vh - 84px);
+    min-height: calc(100svh - 84px);
+    padding: clamp(28px, 6vh, 70px) 16px;
+    background-image: url("./Neon Wolf Trader Command Center.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.course {
+    width: min(100%, 560px);
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    padding: clamp(20px, 3vw, 34px);
+    background-color: rgba(11, 18, 32, 0.96);
+    border: 2px solid #00C8FF;
+    border-radius: 22px;
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course:hover {
+    transform: translateY(-4px);
+    border-color: #00C8FF;
+    box-shadow: 0 0 10px #008CFF, 0 0 25px #008CFF80, 0 0 45px #008CFF40;
+}
+
+.name {
+    margin: 0 0 22px;
+    color: #F4F7FF;
+    font-size: clamp(22px, 3vw, 32px);
+    line-height: 1.25;
+}
+
+.journey-title {
+    margin: 0 0 14px;
+    color: #00C8FF;
+    font-size: clamp(19px, 2.4vw, 25px);
+    line-height: 1.3;
+}
+
+.course p {
+    margin: 0 auto 20px;
+    max-width: 62ch;
+    color: #B7C4D8;
+    font-size: clamp(14px, 1.4vw, 17px);
+    line-height: 1.65;
+    overflow-wrap: break-word;
+}
+
+.tagline {
+    margin: 20px 0;
+    color: #00C8FF;
+    font-size: clamp(19px, 2.6vw, 28px);
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+/* Price row */
+.price {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    margin: 22px auto 0;
+    font-family: Arial, sans-serif;
+}
+
+.offer-price {
+    color: #16a34a;
+    font-size: clamp(25px, 3vw, 32px);
+    font-weight: bold;
+}
+
+.old-price {
+    color: #888;
+    font-size: clamp(15px, 1.8vw, 19px);
+    text-decoration: line-through;
+}
+
+.discount {
+    padding: 7px 10px;
+    border-radius: 6px;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Buy button */
+.btn {
+    margin: 24px auto 0;
+    padding: 12px 26px;
+    border: 1px solid #15803d;
+    border-radius: 4px;
+    background-color: #16a34a;
+    color: #05070D;
+    font-size: 17px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 10px #08da55, 0 0 25px #16a34a, 0 0 45px #15803d;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    nav {
+        justify-content: center;
+    }
+
+    .anker {
+        margin-left: 0;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .main {
+        min-height: calc(100vh - 130px);
+        min-height: calc(100svh - 130px);
+    }
+
+    .course {
+        width: min(100%, 620px);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    nav {
+        min-height: auto;
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .logo {
+        width: 44px;
+        height: 44px;
+    }
+
+    .title {
+        font-size: 19px;
+    }
+
+    .anker {
+        gap: 10px 18px;
+    }
+
+    .anker a {
+        font-size: 14px;
+    }
+
+    .main {
+        min-height: calc(100vh - 112px);
+        min-height: calc(100svh - 112px);
+        padding: 22px 12px;
+        background-position: center;
+    }
+
+    .course {
+        width: 100%;
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+
+    .name {
+        margin-bottom: 18px;
+    }
+
+    .course p {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .tagline {
+        margin: 18px 0;
+    }
+
+    .price {
+        gap: 9px 12px;
+    }
+
+    .btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+    }
+}
+
+@media (max-width: 360px) {
+    .title {
+        font-size: 17px;
+    }
+
+    .anker {
+        gap: 8px 12px;
+    }
+
+    .anker a {
+        font-size: 13px;
+    }
+
+    .course {
+        padding: 17px 12px;
+    }
+}
+/* Laptop and Desktop */
+@media (min-width: 1025px) {
+    body {
+        background-image: url("../assets/image/Neon\ Wolf\ Trader\ Command\ Center.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+}
+
+/* Tablet and Mobile */
+@media (max-width: 1024px) {
+    body {
+        background-image: none;
+        background-color: #05070D;
+    }
+}
+.main {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Space between the two cards */
+}
+
+.card {
+    width: 45%;
+}
+@media (max-width: 600px) {
+    .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        padding: 15px;
+    }
+
+    .course{
+        width: 100%;
+        max-width: 380px;
+        margin: 0;
+        position: relative;
+    }
+}

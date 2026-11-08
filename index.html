@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wolf Trading Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./welcome.css">
+</head>
+<body>
+  <div class="intro" id="intro">
+    <div class="grid"></div>
+    <div class="status" id="status">ANALYZING THE MARKET</div>
+
+    <main class="stage">
+      <div class="camera" id="camera">
+        <div class="chart" id="chart" aria-label="Animated candlestick price chart"></div>
+      </div>
+      <button class="buy-btn" id="buyBtn" type="button">BUY <span>↑</span></button>
+    </main>
+
+    <div class="mouse" id="mouse" aria-hidden="true">
+      <svg viewBox="0 0 30 40" fill="white">
+        <path d="M3 2 L3 32 L11 24 L17 37 L23 34 L17 21 L28 20 Z"
+          stroke="#07101d" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <div class="flash" id="flash"></div>
+
+    <section class="logo-reveal" id="reveal">
+      <img src="./wolf logo.jpeg"
+           alt="Wolf Trading Academy Logo">
+      <div class="welcome-text">MASTER THE MARKET</div>
+      <a class="enter-btn" href="Home.html">ENTER ACADEMY <span>→</span></a>
+    </section>
+  </div>
+
+  <script>
+    const chart = document.getElementById("chart");
+    const camera = document.getElementById("camera");
+    const intro = document.getElementById("intro");
+    const buyBtn = document.getElementById("buyBtn");
+    const mouse = document.getElementById("mouse");
+    const statusText = document.getElementById("status");
+    const flash = document.getElementById("flash");
+    const reveal = document.getElementById("reveal");
+
+    // A designed price path: sell-off, recovery, rally, pullback and recovery.
+    // This is decorative animation data, not live market prices.
+    const closes = [
+      72,68,61,54,47,42,36,31,27,32,29,35,33,39,34,42,38,45,
+      41,49,44,52,48,58,65,72,83,91,87,95,89,98,92,84,78,82,
+      73,79,69,76,66,71,61,55,48,43,35,28,19,12,17,10,15,24,
+      31,40,36,48,43,55,61,57,66,62,70,67,74,71,78,74,81,77
+    ];
+
+    // Deterministic small variations make each candle look like OHLC market data.
+    let seed = 91827;
+    function rand() {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    }
+
+    const candles = closes.map((close, i) => {
+      const open = i === 0 ? close + 5 : closes[i - 1];
+      const high = Math.max(open, close) + 2 + rand() * 7;
+      const low = Math.min(open, close) - 2 - rand() * 7;
+      return { open, close, high, low };
+    });
+
+    const minPrice = Math.min(...candles.map(c => c.low));
+    const maxPrice = Math.max(...candles.map(c => c.high));
+    const range = maxPrice - minPrice;
+    const chartHeight = 100; // coordinates are percentages of chart height
+
+    candles.forEach((candle, i) => {
+      const x = (i / candles.length) * 100;
+      const y = value => ((value - minPrice) / range) * chartHeight;
+      const low = y(candle.low);
+      const high = y(candle.high);
+      const open = y(candle.open);
+      const close = y(candle.close);
+      const bodyBottom = Math.min(open, close);
+      const bodyHeight = Math.max(0.65, Math.abs(close - open));
+      const rising = candle.close >= candle.open;
+
+      const item = document.createElement("div");
+      item.className = "candle " + (rising ? "bull" : "bear");
+      item.style.left = x + "%";
+      item.style.setProperty("--delay", (i * 0.055) + "s");
+      item.style.setProperty("--low", low + "%");
+      item.style.setProperty("--wick-height", (high - low) + "%");
+
+      const body = document.createElement("span");
+      body.className = "body";
+      body.style.bottom = ((bodyBottom - low) / (high - low) * 100) + "%";
+      body.style.height = (bodyHeight / (high - low) * 100) + "%";
+      item.appendChild(body);
+      chart.appendChild(item);
+    });
+
+    function moveMouseToBuy() {
+      const b = buyBtn.getBoundingClientRect();
+      const root = intro.getBoundingClientRect();
+      mouse.style.left = (b.left - root.left + b.width * .55) + "px";
+      mouse.style.top = (b.top - root.top + b.height * .55) + "px";
+      mouse.classList.add("visible");
+      requestAnimationFrame(() => mouse.classList.add("move"));
+    }
+
+    window.addEventListener("load", () => {
+      camera.classList.add("camera-follow");
+
+      setTimeout(() => {
+        camera.classList.remove("camera-follow");
+        camera.classList.add("wide-shot");
+        buyBtn.classList.add("show");
+        statusText.textContent = "TRADE OPPORTUNITY DETECTED";
+        moveMouseToBuy();
+      }, 4900);
+
+      setTimeout(() => {
+        mouse.classList.add("clicking");
+        buyBtn.classList.add("pressed");
+        buyBtn.click();
+      }, 6650);
+    });
+
+    buyBtn.addEventListener("click", () => {
+      if (intro.classList.contains("reveal-started")) return;
+      intro.classList.add("reveal-started");
+      statusText.textContent = "TRADE CONFIRMED";
+      flash.classList.add("active");
+      intro.classList.add("logo-transition");
+
+      setTimeout(() => {
+        reveal.classList.add("active");
+        mouse.classList.remove("visible");
+        statusText.textContent = "";
+      }, 900);
+    });
+  </script>
+</body>
+</html>

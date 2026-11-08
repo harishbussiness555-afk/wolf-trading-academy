@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details | Wolf Trading Academy</title>
+
+    <link rel="stylesheet" href="./buynow.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <img src="./Neon Wolf Trading Academy Logo.png"
+             alt="Wolf Trading Academy">
+
+        <h2>WOLF <span>TRADING ACADEMY</span></h2>
+    </nav>
+
+    <section class="form-section">
+
+        <div class="form-heading">
+            <p class="tagline">WELCOME TO THE NEXT LEVEL</p>
+            <h1>Customer <span>Details</span></h1>
+            <p>Complete your details to continue your academy enrollment.</p>
+        </div>
+
+        <form class="customer-form" id="customerForm">
+
+            <h3>Personal Information</h3>
+
+            <div class="input-grid">
+
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        placeholder="Enter your full name"
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label>Phone Number</label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="Enter phone number"
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label>City</label>
+                    <input
+                        type="text"
+                        id="city"
+                        placeholder="Enter your city"
+                        required>
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <h3>Course Information</h3>
+
+            <div class="input-grid">
+
+                <div class="input-group">
+                    <label>Selected Course</label>
+                    <input
+                        type="text"
+                        id="selectedCourse"
+                        value="Complete Trading Course – 1 Month"
+                        readonly>
+                </div>
+
+                <div class="input-group">
+                    <label>Trading Experience</label>
+                    <select id="experience" required>
+                        <option value="">Select experience</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="input-group full-width">
+                <label>Your Trading Goal</label>
+                <textarea
+                    id="goal"
+                    placeholder="Tell us what you want to learn..."
+                    rows="4"></textarea>
+            </div>
+
+            <div class="terms">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">
+                    I confirm that the information provided is correct.
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                SUBMIT DETAILS <span>→</span>
+            </button>
+
+            <p class="secure-text">
+                WOLF TRADING ACADEMY | ENROLLMENT FORM
+            </p>
+
+        </form>
+
+    </section>
+
+    <script>
+        document.getElementById("customerForm").addEventListener("submit", function(e) {
+
+            e.preventDefault();
+
+            const customer = {
+                name: document.getElementById("fullName").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                phone: document.getElementById("phone").value.trim(),
+                city: document.getElementById("city").value.trim(),
+                course: document.getElementById("selectedCourse").value,
+                experience: document.getElementById("experience").value,
+                goal: document.getElementById("goal").value.trim()
+            };
+
+            // Save customer details
+            sessionStorage.setItem(
+                "wolfCustomer",
+                JSON.stringify(customer)
+            );
+
+            // Redirect to payment page
+            window.location.href = "payment.html";
+
+        });
+    </script>
+
+</body>
+</html>
+```

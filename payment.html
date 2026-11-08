@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment | Wolf Trading Academy</title>
+
+    <link rel="stylesheet" href="./payment.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="Home.html" class="brand">
+
+            <img src="./wolf logo.jpeg"
+                 alt="Wolf Trading Academy">
+
+            <div class="brand-text">
+                <h2>WOLF</h2>
+                <span>TRADING ACADEMY</span>
+            </div>
+
+        </a>
+    </nav>
+
+
+    <!-- PAYMENT SECTION -->
+    <main class="payment-section">
+
+        <div class="heading">
+            <p class="tagline">ALMOST THERE</p>
+
+            <h1>PAYMENT <span>SUMMARY</span></h1>
+
+            <p>Review your enrollment details.</p>
+        </div>
+
+
+        <div class="payment-card">
+
+            <h3>CUSTOMER DETAILS</h3>
+
+            <div class="detail-row">
+                <span>Full Name</span>
+                <strong id="customerName">Loading...</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Email</span>
+                <strong id="customerEmail">Loading...</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Phone</span>
+                <strong id="customerPhone">Loading...</strong>
+            </div>
+
+
+            <div class="divider"></div>
+
+
+            <h3>COURSE DETAILS</h3>
+
+            <div class="course-box">
+
+                <p id="courseName">Loading course...</p>
+
+                <h2 id="coursePrice">₹0</h2>
+
+            </div>
+
+
+            <div class="amount-row">
+                <span>Additional Charges</span>
+                <strong>₹0</strong>
+            </div>
+
+
+            <div class="divider"></div>
+
+
+            <div class="total-row">
+                <span>Total Amount</span>
+                <strong id="totalAmount">₹0</strong>
+            </div>
+
+
+            <button type="button" class="pay-btn" id="payButton">
+                PROCEED TO PAYMENT →
+            </button>
+
+
+            <p class="secure-text">
+                Wolf Trading Academy | Enrollment Summary
+            </p>
+
+
+            <a href="buynow(1).html" id="editLink" class="edit-link">
+                ← Edit Customer Details
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        WOLF <span>TRADING ACADEMY</span>
+
+        <p>Learn the market. Build your knowledge. Trade responsibly.</p>
+    </footer>
+
+
+    <!-- PAYMENT PAGE JAVASCRIPT -->
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Retrieve customer information
+            const savedData = sessionStorage.getItem("wolfCustomer");
+
+            if (!savedData) {
+                alert("Customer details not found. Please fill the form again.");
+                window.location.replace("buynow(1).html");
+                return;
+            }
+
+            let customer;
+
+            try {
+                customer = JSON.parse(savedData);
+            } catch (error) {
+                alert("Customer information is invalid. Please fill the form again.");
+                window.location.replace("buynow(1).html");
+                return;
+            }
+
+
+            // Both available courses
+            const courses = {
+
+                "Complete Trading Course – 1 Month": {
+                    name: "Complete Trading Course – 1 Month",
+                    price: 19999,
+                    editPage: "buynow(1).html"
+                },
+
+                "30 Hours Recorded Trading Course": {
+                    name: "30 Hours Recorded Trading Course",
+                    price: 8999,
+                    editPage: "recordcourse.html"
+                }
+
+            };
+
+
+            // Identify selected course
+            const selectedCourse = courses[customer.course];
+
+
+            if (!selectedCourse) {
+
+                alert("Invalid course selected. Please select your course again.");
+
+                window.location.replace("buynow(1).html");
+
+                return;
+            }
+
+
+            // Display customer details
+            document.getElementById("customerName").textContent =
+                customer.name || "-";
+
+            document.getElementById("customerEmail").textContent =
+                customer.email || "-";
+
+            document.getElementById("customerPhone").textContent =
+                customer.phone || "-";
+
+
+            // Display selected course
+            document.getElementById("courseName").textContent =
+                selectedCourse.name;
+
+
+            // Display course price
+            const formattedPrice =
+                "₹" + selectedCourse.price.toLocaleString("en-IN");
+
+            document.getElementById("coursePrice").textContent =
+                formattedPrice;
+
+            document.getElementById("totalAmount").textContent =
+                formattedPrice;
+
+
+            // Correct edit page for each course
+            document.getElementById("editLink").href =
+                selectedCourse.editPage;
+
+
+            // Payment button (gateway not connected yet)
+            document.getElementById("payButton").addEventListener("click", function () {
+
+                alert("Payment gateway integration is required to accept payments.");
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
+```
